@@ -4,9 +4,7 @@ from bs4 import BeautifulSoup
 import time
 import os
 from dotenv import load_dotenv
-from twilio.rest import Client 
-
-load_dotenv("bestbuy.env")
+from twilio.rest import Client
 
 TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
 TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
