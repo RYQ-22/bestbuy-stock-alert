@@ -3,6 +3,8 @@ Check Best Buy stock and send an SMS notification via Twilio API if available.
 
 ## Usage
 
+Python version: 3.9.20
+
 - Modify `bestbuy.env`
 - `pip install -r requirements.txt`
 - `python bestbuy.py <url>`
