@@ -6,6 +6,8 @@ import os
 from dotenv import load_dotenv
 from twilio.rest import Client
 
+load_dotenv("bestbuy.env")
+
 TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
 TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
 MESSAGING_SERVICE_SID = os.getenv("MESSAGING_SERVICE_SID")
