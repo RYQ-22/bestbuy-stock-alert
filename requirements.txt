@@ -1,4 +1,4 @@
 beautifulsoup4
-requests
+requests[socks]
 python-dotenv
 twilio
