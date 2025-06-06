@@ -11,9 +11,7 @@ TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
 MESSAGING_SERVICE_SID = os.getenv("MESSAGING_SERVICE_SID")
 RECIPIENT_PHONE_NUMBER = os.getenv("RECIPIENT_PHONE_NUMBER") 
 
-print(TWILIO_ACCOUNT_SID)
-
-DEFAULT_URL = "https://www.bestbuy.com/site/nvidia-geforce-rtx-5080-16gb-gddr7-graphics-card-gun-metal/6614153.p"
+DEFAULT_URL = "https://www.bestbuy.com/site/nvidia-geforce-rtx-5080-16gb-gddr7-graphics-card-gun-metal/6614153.p" # Default: 5080 fe
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
 }
@@ -67,11 +65,13 @@ def check_button_status(target_url):
             elif found_test_id == "sold-out":
                 found_state = "Sold Out"
             elif found_test_id == "coming-soon":
-                 found_state = "Coming Soon"
+                found_state = "Coming Soon"
             elif found_test_id == "check-stores":
-                 found_state = "Check Stores"
+                found_state = "Check Stores"
             elif found_test_id == "get-notified":
-                 found_state = "Get Notified"
+                found_state = "Get Notified"
+            elif found_test_id == "in-store-only":
+                found_state = "In Store Only"
             else:
                 button_text_lower = button_text.lower()
                 found_state = f"Unknown: {button_text}"
@@ -118,4 +118,4 @@ if __name__ == "__main__":
     elif "Error" in status:
         print(f"{status}\n")              # Error
     else:
-        print(f"{status}\n")              # Unknown
+        print(f"{status}\n")              # Others
