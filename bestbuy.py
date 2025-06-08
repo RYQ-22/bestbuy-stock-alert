@@ -44,7 +44,7 @@ def check_button_status(target_url):
         soup = BeautifulSoup(response.text, "html.parser")
 
         # Try to find the button using possible data-test-ids
-        possible_test_ids = ["add-to-cart", "sold-out", "coming-soon", "check-stores", "get-notified"]
+        possible_test_ids = ["add-to-cart", "sold-out", "coming-soon", "check-stores", "get-notified", "in-store-only"]
         button = None
         found_state = "Unknown"
         found_test_id = None
@@ -63,26 +63,7 @@ def check_button_status(target_url):
 
         # --- Check button status ---
         if button:
-            # Get text from the button, either from a span inside or directly from the button
-            button_text_element = button.find('span')
-            button_text = button_text_element.text.strip() if button_text_element else button.text.strip()
-            # print(f"Button text: '{button_text}'")
-
-            # Determine the state based on the found test_id or button text
-            if found_test_id == "add-to-cart":
-                found_state = "Add to Cart"
-            elif found_test_id == "sold-out":
-                found_state = "Sold Out"
-            elif found_test_id == "coming-soon":
-                found_state = "Coming Soon"
-            elif found_test_id == "check-stores":
-                found_state = "Check Stores"
-            elif found_test_id == "get-notified":
-                found_state = "Get Notified"
-            elif found_test_id == "in-store-only":
-                found_state = "In Store Only"
-            else:
-                found_state = f"Unknown: {button_text}"
+            found_state = found_test_id.replace('-', ' ').title()
 
         return found_state
 
