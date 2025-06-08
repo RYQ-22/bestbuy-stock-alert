@@ -45,7 +45,6 @@ def check_button_status(target_url):
 
         # Try to find the button using possible data-test-ids
         possible_test_ids = ["add-to-cart", "sold-out", "coming-soon", "check-stores", "get-notified", "in-store-only"]
-        button = None
         found_state = "Unknown"
         found_test_id = None
 
@@ -56,14 +55,9 @@ def check_button_status(target_url):
             button_candidate = soup.select_one(selector)
 
             if button_candidate:
-                button = button_candidate
                 found_test_id = test_id
-                # print(f"Found button, using data-test-id: '{found_test_id}'")
+                found_state = found_test_id.replace('-', ' ').title()
                 break # Stop searching once a button is found
-
-        # --- Check button status ---
-        if button:
-            found_state = found_test_id.replace('-', ' ').title()
 
         return found_state
 
