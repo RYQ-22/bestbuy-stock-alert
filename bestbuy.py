@@ -15,9 +15,12 @@ TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
 TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
 MESSAGING_SERVICE_SID = os.getenv("MESSAGING_SERVICE_SID")
 RECIPIENT_PHONE_NUMBER = os.getenv("RECIPIENT_PHONE_NUMBER")
-GOOGLE_APPLICATION_PASSWORD = os.getenv("GOOGLE_APPLICATION_PASSWORD")
 SENDER_EMAIL = os.getenv("SENDER_EMAIL")
 RECIPIENT_EMAIL = os.getenv("RECIPIENT_EMAIL")
+GMAIL_EMAIL = os.getenv("GMAIL_EMAIL")
+GOOGLE_APPLICATION_PASSWORD = os.getenv("GOOGLE_APPLICATION_PASSWORD")
+ICLOUD_EMAIL = os.getenv("ICLOUD_EMAIL")
+APPLE_APPLICATION_PASSWORD = os.getenv("APPLE_APPLICATION_PASSWORD")
 
 DEFAULT_URL = "https://www.bestbuy.com/site/nvidia-geforce-rtx-5080-16gb-gddr7-graphics-card-gun-metal/6614153.p" # Default: 5080 fe
 DEFAULT_PROVIDER = "twilio"
@@ -75,6 +78,8 @@ def send_msg(msg_title, msg_body):
         send_msg_via_twilio(msg_title, msg_body)
     elif provider == "gmail":
         send_msg_via_gmail(msg_title, msg_body)
+    elif provider == "icloud":
+        send_mas_via_icloud(msg_title, msg_body)
 
 def send_msg_via_twilio(msg_title, msg_body):
     client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
@@ -87,7 +92,19 @@ def send_msg_via_twilio(msg_title, msg_body):
 def send_msg_via_gmail(msg_title, msg_body):
     s = smtplib.SMTP('smtp.gmail.com', 587)
     s.starttls()
-    s.login(SENDER_EMAIL, GOOGLE_APPLICATION_PASSWORD)
+    s.login(GMAIL_EMAIL, GOOGLE_APPLICATION_PASSWORD)
+    msg = EmailMessage()
+    msg['From'] = SENDER_EMAIL
+    msg['To'] = RECIPIENT_EMAIL
+    msg['Subject'] = msg_title
+    msg.set_content(msg_body)
+    s.send_message(msg)
+    s.quit()
+    
+def send_mas_via_icloud(msg_title, msg_body):
+    s = smtplib.SMTP('smtp.mail.me.com', 587)
+    s.starttls()
+    s.login(ICLOUD_EMAIL, APPLE_APPLICATION_PASSWORD)
     msg = EmailMessage()
     msg['From'] = SENDER_EMAIL
     msg['To'] = RECIPIENT_EMAIL
@@ -108,7 +125,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--provider",
         type=str,
-        choices=["twilio", "gmail"],
+        choices=["twilio", "gmail", "icloud"],
         default=DEFAULT_PROVIDER,
         help="The service provider to send messages (optional, defaults to twilio)"
     )
